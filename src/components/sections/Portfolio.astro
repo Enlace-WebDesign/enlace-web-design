@@ -1,0 +1,54 @@
+---
+import Wrapper from "@components/shared/Wrapper.astro";
+import Container from "@components/shared/Container.astro";
+import Heading from "@components/shared/Heading.astro";
+import Lead from "@components/shared/Lead.astro";
+import ProjectCard from "@components/ui/ProjectCard.astro";
+
+const { title, description, projects } = Astro.props;
+
+interface Project {
+  title: string;
+  description: string;
+  url: string;
+  badge: string;
+  badgeIcon: any;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  projects: Project[];
+}
+
+const gridCols: Record<number, string> = {
+  1: "grid-cols-1",
+  2: "grid-cols-1 md:grid-cols-2",
+  3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+  4: "grid-cols-1 md:grid-cols-2",
+  5: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+};
+
+const cols =
+  projects.length >= 6
+    ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+    : (gridCols[projects.length] ??
+      "grid-cols-1 md:grid-cols-2 lg:grid-cols-3");
+---
+
+<Wrapper class="bg-gray-950 py-20" id="portfolio">
+  <Container>
+    <div class="text-center mb-16">
+      <Heading title={title} centered class="text-white" />
+      {
+        description && (
+          <Lead text={description} centered class="text-gray-400" />
+        )
+      }
+    </div>
+
+    <div class={`grid ${cols} gap-6`}>
+      {projects.map((project) => <ProjectCard {...project} />)}
+    </div>
+  </Container>
+</Wrapper>

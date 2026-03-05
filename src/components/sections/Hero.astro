@@ -1,0 +1,104 @@
+---
+import Container from "@components/shared/Container.astro";
+import Wrapper from "@components/shared/Wrapper.astro";
+import Button from "@components/shared/Button.astro";
+import Heading from "@components/shared/Heading.astro";
+import Lead from "@components/shared/Lead.astro";
+import { HERO_VARIANTS, type HeroVariant } from "@utils/heroVariants";
+
+interface Props {
+  variant?: HeroVariant;
+  title: string;
+  description: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+  image?: string;
+  images?: string[];
+}
+
+const {
+  title,
+  description,
+  buttonLabel,
+  buttonHref = "#",
+  variant = HERO_VARIANTS.FULLWIDTH,
+  image,
+  images = [],
+} = Astro.props;
+---
+
+<Wrapper id="hero">
+  {
+    variant === HERO_VARIANTS.FULLWIDTH && (
+      <div
+        class="relative min-h-screen md:min-h-200 flex items-center justify-baseline bg-cover bg-center"
+        style={`background-image: url('${image}')`}
+      >
+        <div class="absolute inset-0 bg-black/50" />
+        <Container class="w-6xl flex items-center justify-start">
+          <div class="relative z-10 text-center md:text-left text-white max-w-2xl flex flex-col gap-6">
+            <Heading title={title} size="text-6xl" />
+            <Lead text={description} color="gray-200" />
+            {buttonLabel && (
+              <div class="mt-8">
+                <Button
+                  label={buttonLabel}
+                  href={buttonHref}
+                  variant="primary"
+                  pulse
+                />
+              </div>
+            )}
+          </div>
+        </Container>
+      </div>
+    )
+  }
+
+  <!-- Variante: Solo texto, sin imagen -->
+  {
+    variant === HERO_VARIANTS.TEXT && (
+      <div class="min-h-[60vh] flex items-center">
+        <Container>
+          <div class="max-w-2xl">
+            <Heading title={title} size="text-6xl" />
+            <Lead text={description} />
+            {buttonLabel && (
+              <div class="mt-8">
+                <Button label={buttonLabel} href={buttonHref} />
+              </div>
+            )}
+          </div>
+        </Container>
+      </div>
+    )
+  }
+
+  <!-- Variante: Texto a la izquierda + imagen a la derecha -->
+  {
+    variant === HERO_VARIANTS.IMAGE_RIGHT && (
+      <div class="min-h-[60vh] flex items-center">
+        <Container>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <Heading title={title} size="text-6xl" />
+              <Lead text={description} />
+              {buttonLabel && (
+                <div class="mt-8">
+                  <Button label={buttonLabel} href={buttonHref} />
+                </div>
+              )}
+            </div>
+            <div>
+              <img
+                src={image}
+                alt={title}
+                class="w-full rounded-2xl object-cover"
+              />
+            </div>
+          </div>
+        </Container>
+      </div>
+    )
+  }
+</Wrapper>

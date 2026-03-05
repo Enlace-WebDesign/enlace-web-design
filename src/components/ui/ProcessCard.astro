@@ -1,0 +1,41 @@
+---
+import Card from "@components/shared/Card.astro";
+
+const { number, title, description, isLast = false } = Astro.props;
+
+interface Props {
+  number: number;
+  title: string;
+  description: string;
+  isLast?: boolean;
+}
+
+const formattedNumber = String(number).padStart(2, "0");
+---
+
+<div class="relative flex-1">
+  <Card class="h-full" hoverable>
+    <!-- Número grande con gradiente -->
+    <span
+      class="text-7xl font-extrabold bg-linear-to-br from-orange-400 to-orange-800 bg-clip-text text-transparent"
+    >
+      {formattedNumber}
+    </span>
+
+    <!-- Línea decorativa -->
+    <div class="w-8 h-0.5 bg-linear-to-r from-orange-400 to-orange-800 my-3">
+    </div>
+
+    <h3 class="text-lg font-bold text-gray-900 mb-2">{title}</h3>
+    <p class="text-gray-600 text-sm leading-relaxed">{description}</p>
+  </Card>
+
+  <!-- Flecha fuera de la Card para que quede entre cards -->
+  {
+    !isLast && (
+      <span class="absolute top-8 -right-3 z-10 text-orange-500 text-xl font-bold hidden md:inline-flex">
+        ›
+      </span>
+    )
+  }
+</div>

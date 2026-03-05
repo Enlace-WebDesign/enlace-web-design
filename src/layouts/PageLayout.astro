@@ -1,0 +1,33 @@
+---
+import Footer from "@components/sections/Footer.astro";
+import MainLayout from "./MainLayout.astro";
+import Navbar from "@components/sections/Navbar.astro";
+import { contact } from "../data/data";
+
+const { title, description } = Astro.props;
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+---
+
+<MainLayout title={title} description={description}>
+  <Navbar />
+  <main>
+    <slot />
+  </main>
+  <Footer
+    logo="/images/logo_white.svg"
+    description="Creamos landing pages modernas y efectivas que convierten visitantes en clientes."
+    navLinks={[
+      { label: "Servicios", href: "#servicios" },
+      { label: "Portafolio", href: "#portafolio" },
+      { label: "Proceso", href: "#proceso" },
+      { label: "Contacto", href: "#contacto" },
+    ]}
+    phone={contact.phone}
+    location={"Buenos Aires, Argentina\nTrabajamos en toda Latinoamérica"}
+    copyright="© 2026 Enlace - Web Design. Todos los derechos reservados."
+  />
+</MainLayout>

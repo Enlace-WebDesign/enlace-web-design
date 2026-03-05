@@ -1,0 +1,97 @@
+---
+import Card from "../shared/Card.astro";
+import Button from "../shared/Button.astro";
+import { Check } from "@lucide/astro";
+
+const {
+  name,
+  price,
+  period,
+  description,
+  features,
+  buttonLabel,
+  buttonHref,
+  highlighted = false,
+  badge,
+} = Astro.props;
+
+interface Props {
+  name: string;
+  price: string;
+  period?: string;
+  description: string;
+  features: string[];
+  buttonLabel: string;
+  buttonHref?: string;
+  highlighted?: boolean;
+  badge?: string;
+}
+---
+
+<div class="relative flex-1">
+  <Card
+    class={`h-full flex flex-col gap-6 border-2 ${highlighted ? "bg-gray-900 border-orange-500 text-white" : "border-gray-300"}`}
+    hoverable
+  >
+    {
+      badge && (
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+          <span class="bg-orange-500 text-white text-xs font-bold uppercase px-4 py-1 rounded-full whitespace-nowrap">
+            {badge}
+          </span>
+        </div>
+      )
+    }
+
+    <div>
+      <h3
+        class={`text-lg font-bold mb-1 ${highlighted ? "text-gray-800" : "text-gray-900"}`}
+      >
+        {name}
+      </h3>
+      <p class={`text-sm ${highlighted ? "text-gray-400" : "text-gray-500"}`}>
+        {description}
+      </p>
+    </div>
+
+    <div class="flex items-end gap-1">
+      <span
+        class={`text-4xl font-extrabold ${highlighted ? "text-gray-800" : "text-gray-900"}`}
+      >
+        {price}
+      </span>
+      {
+        period && (
+          <span
+            class={`text-sm mb-1 ${highlighted ? "text-gray-600" : "text-gray-500"}`}
+          >
+            /{period}
+          </span>
+        )
+      }
+    </div>
+
+    <div class={`h-px w-full ${highlighted ? "bg-gray-700" : "bg-gray-300"}`}>
+    </div>
+
+    <ul class="flex flex-col gap-3 flex-1">
+      {
+        features.map((feature: string) => (
+          <li class="flex items-start gap-2 text-sm">
+            <Check class="w-4 h-4 text-teal-500 shrink-0 mt-0.5" />
+            <span class={highlighted ? "text-gray-600" : "text-gray-600"}>
+              {feature}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <Button
+      label={buttonLabel}
+      href={buttonHref}
+      variant={highlighted ? "primary" : "outline"}
+      fullWidth
+    />
+  </Card>
+</div>

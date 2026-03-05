@@ -1,0 +1,164 @@
+---
+import Wrapper from "@components/shared/Wrapper.astro";
+import Container from "@components/shared/Container.astro";
+import { Image } from "astro:assets";
+
+const navLinks = [
+  { label: "Inicio", href: "#hero" },
+  { label: "Servicios", href: "#services" },
+  { label: "Proceso", href: "#process" },
+  { label: "Portafolio", href: "#portfolio" },
+  { label: "Contacto", href: "#contact" },
+];
+---
+
+<Wrapper id="navbar" class="fixed top-0 z-50 transition-all duration-300">
+  <div class={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8`}>
+    <nav class="flex items-center justify-between h-16">
+      <a
+        href="/"
+        class="text-xl font-bold text-white transition-colors duration-300"
+        id="navbar-logo"
+      >
+        <Image
+          id="navbar-logo-img"
+          src="/images/logo_white.svg"
+          alt="Logo de la empresa"
+          width={150}
+          height={150}
+          class="inline-block mr-2"
+        />
+      </a>
+
+      <!-- Links desktop -->
+      <ul class="hidden md:flex items-center gap-6">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="navbar-link text-white hover:opacity-70 transition-all duration-300"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <button id="menu-toggle" class="md:hidden p-2 rounded-lg relative">
+        <span
+          class="block w-5 h-0.5 bg-white mb-1 transition-all duration-300 transform"
+          id="burger-1"></span>
+        <span
+          class="block w-5 h-0.5 bg-white mb-1 transition-all duration-300 transform"
+          id="burger-2"></span>
+        <span
+          class="block w-5 h-0.5 bg-white transition-all duration-300 transform"
+          id="burger-3"></span>
+      </button>
+    </nav>
+
+    <!-- Menú mobile -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4">
+      <ul class="flex flex-col gap-3">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="navbar-link block text-white hover:opacity-70 transition-all duration-300"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Wrapper>
+
+<script>
+  const navbar = document.getElementById("navbar");
+  const navbarLinks = document.querySelectorAll(".navbar-link");
+  const burgers = [
+    document.getElementById("burger-1"),
+    document.getElementById("burger-2"),
+    document.getElementById("burger-3"),
+  ];
+  const logoImg: HTMLImageElement = document.getElementById(
+    "navbar-logo-img",
+  ) as HTMLImageElement;
+
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+
+  window.addEventListener("scroll", () => {
+    const scrolled = window.scrollY > 50;
+
+    navbar?.classList.toggle("bg-white", scrolled);
+    navbar?.classList.toggle("shadow-md", scrolled);
+
+    navbarLinks.forEach((link) => {
+      link.classList.toggle("text-white", !scrolled);
+      link.classList.toggle("text-black", !scrolled);
+      link.classList.toggle("text-gray-700", scrolled);
+    });
+
+    burgers.forEach((bar) => {
+      bar?.classList.toggle("bg-white", !scrolled);
+      bar?.classList.toggle("bg-gray-900", scrolled);
+    });
+
+    if (logoImg) {
+      const logoSrc = scrolled
+        ? "/images/logo_black.svg"
+        : "/images/logo_white.svg";
+      logoImg.src = logoSrc;
+    }
+  });
+
+  toggle?.addEventListener("click", () => {
+    if (window.scrollY > 50) {
+      menu?.classList.toggle("bg-white");
+      menu?.classList.toggle("bg-gray-100");
+    } else {
+      menu?.classList.toggle("bg-white");
+      navbar?.classList.toggle("bg-white");
+      navbarLinks.forEach((link) => {
+        link.classList.toggle("text-white");
+        link.classList.toggle("text-black");
+        link.classList.toggle("text-gray-700");
+      });
+      burgers.forEach((bar) => {
+        bar?.classList.toggle("bg-white");
+        bar?.classList.toggle("bg-gray-900");
+      });
+
+      if (logoImg) {
+        const logoSrc = menu?.classList.contains("bg-white")
+          ? "/images/logo_black.svg"
+          : "/images/logo_white.svg";
+        logoImg.src = logoSrc;
+      }
+    }
+
+    menu?.classList.toggle("hidden");
+    toggle?.classList.toggle("open");
+  });
+</script>
+
+<style>
+  .open #burger-1 {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .open #burger-2 {
+    opacity: 0;
+  }
+
+  .open #burger-3 {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+</style>

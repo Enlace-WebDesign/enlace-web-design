@@ -1,0 +1,45 @@
+---
+import Wrapper from "@components/shared/Wrapper.astro";
+import Container from "@components/shared/Container.astro";
+import Heading from "@components/shared/Heading.astro";
+import Lead from "@components/shared/Lead.astro";
+import ServiceCard from "@components/ui/ServiceCard.astro";
+import { type Icon as IconType } from "@lucide/astro";
+
+const { title, description, services } = Astro.props;
+
+interface Service {
+  title: string;
+  description: string;
+  icon: typeof IconType;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  services: Service[];
+}
+---
+
+<Wrapper id="services">
+  <Container>
+    <!-- Encabezado de la sección -->
+    <div class="text-center mb-12">
+      <Heading title={title} centered />
+      {description && <Lead text={description} centered />}
+    </div>
+
+    <!-- Grid de servicios -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        services.map((service) => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+            icon={service.icon}
+          />
+        ))
+      }
+    </div>
+  </Container>
+</Wrapper>

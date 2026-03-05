@@ -1,0 +1,161 @@
+---
+import PageLayout from "@layouts/PageLayout.astro";
+import Hero from "@components/sections/Hero.astro";
+import Services from "@components/sections/Services.astro";
+import Process from "@components/sections/Process.astro";
+import { HERO_VARIANTS } from "@utils/heroVariants";
+import Portfolio from "@components/sections/Portfolio.astro";
+import ContactCTA from "@components/sections/ContactCTA.astro";
+import Pricing from "@components/sections/Pricing.astro";
+import { FastForward, ShoppingCart, Scale } from "@lucide/astro";
+import { contact, services } from "../data/data";
+---
+
+<PageLayout
+  title="Enlace Design - Soluciones Digitales"
+  description="Agencia de diseño y desarrollo web. Creamos experiencias digitales únicas para tu marca."
+>
+  <Hero
+    variant={HERO_VARIANTS.FULLWIDTH}
+    title="Creamos Landing Pages que Convierten"
+    description="Diseño web profesional y moderno que transforma visitantes en clientes. Impulsa tu negocio digital con páginas optimizadas para resultados."
+    buttonLabel="Contáctanos y Empecemos"
+    buttonHref="#contact"
+    image="/images/hero-bg.jpg"
+  />
+
+  <section id="servicios">
+    <Services
+      title="Nuestros Servicios"
+      description="Todo lo que necesitás para tu presencia digital."
+      services={services}
+    />
+  </section>
+
+  <Portfolio
+    title="Proyectos Destacados"
+    description="Descubrí algunos de nuestros trabajos más recientes y exitosos."
+    projects={[
+      {
+        title: "Yudith Autoservicio",
+        description:
+          "Landing page para autoservicio mayorista con catálogo de productos, marcas asociadas y mapa de ubicación.",
+        url: "https://emiperez997.github.io/yudith-autoservicio/",
+        badge: "Comercio Mayorista",
+        badgeIcon: ShoppingCart,
+      },
+      {
+        title: "Estudio Sanguine",
+        description:
+          "Sitio profesional para estudio de abogados penalistas con áreas de especialidad y formulario de contacto.",
+        url: "https://estudiosanguine.com.ar/",
+        badge: "Estudio Jurídico",
+        badgeIcon: Scale,
+      },
+      {
+        title: "Amparo de Salud",
+        description:
+          "Landing page para empresa de amparos de salud con información clara sobre servicios, beneficios y contacto.",
+        url: "https://amparodesalud.com.ar/",
+        badge: "Servicios de Salud",
+        badgeIcon: Scale,
+      },
+      {
+        title: "Distribau",
+        description:
+          "Sitio corporativo para empresa de distribución y logística con presentación de servicios comerciales, operativa técnica y cobertura geográfica.",
+        url: "https://distribau.com.ar/",
+        badge: "Distribución y Logística",
+        badgeIcon: FastForward,
+      },
+    ]}
+  />
+
+  <Process
+    title="Cómo Trabajamos"
+    description="Proceso simple y efectivo"
+    steps={[
+      {
+        title: "Consulta Inicial",
+        description: "Conversamos sobre tus objetivos, audiencia y visión.",
+      },
+      {
+        title: "Diseño",
+        description:
+          "Creamos mockups y prototipos visuales que reflejan tu marca.",
+      },
+      {
+        title: "Desarrollo",
+        description: "Transformamos el diseño en una landing page funcional.",
+      },
+      {
+        title: "Lanzamiento",
+        description:
+          "Publicamos tu sitio y te acompañamos en los primeros pasos.",
+      },
+    ]}
+  />
+
+  <!-- Pago único -->
+  <Pricing
+    title="Planes y Precios"
+    description="Elegí el plan que mejor se adapte a tu negocio."
+    plans={[
+      {
+        name: "Landing Page Básica",
+        price: "$100",
+        description: "Ideal para emprendedores que están comenzando.",
+        features: [
+          "Hasta 3 secciones",
+          "Diseño responsive",
+          "Botón de contacto",
+          "Entrega de 2 a 3 días",
+          "Boceto inicial para revisión",
+        ],
+        buttonLabel: "Empezar",
+        buttonHref: "#contact",
+      },
+      {
+        name: "Landing Page Pro",
+        price: "$200",
+        description:
+          "Perfecto para negocios que buscan destacar y convertir más.",
+        features: [
+          "Todo lo del plan Básico",
+          "Hasta 5 secciones",
+          "Animaciones y efectos",
+          "SEO optimizado",
+          "Entrega en 5 días",
+          "Revisión y ajustes",
+        ],
+        buttonLabel: "Empezar",
+        buttonHref: "#contact",
+        highlighted: true,
+        badge: "Más popular",
+      },
+      {
+        name: "Ecommerce o Sistema Personalizado",
+        price: "$350",
+        description:
+          "La solución completa para vender tus productos en línea con una tienda integrada.",
+        features: [
+          "Todo lo del plan Pro",
+          "Tienda online con catálogo de productos",
+          "Pasarela de pago integrada",
+          "Gestión de pedidos y clientes",
+          "Entrega en 15 días",
+        ],
+        buttonLabel: "Empezar",
+        buttonHref: "#contact",
+      },
+    ]}
+  />
+
+  <ContactCTA
+    title="Comienza tu proyecto"
+    description="Estamos listos para llevar tu negocio al siguiente nivel. Conversemos sobre tu proyecto y hagámoslo realidad."
+    ctaLabel="Hablemos por WhatsApp"
+    ctaHref={`https://wa.me/${contact.phone}`}
+    image="/images/contact-bg.jpg"
+  />
+</PageLayout>

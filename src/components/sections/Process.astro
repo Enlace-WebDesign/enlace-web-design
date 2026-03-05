@@ -1,0 +1,42 @@
+---
+import Wrapper from "@components/shared/Wrapper.astro";
+import Container from "@components/shared/Container.astro";
+import Heading from "@components/shared/Heading.astro";
+import Lead from "@components/shared/Lead.astro";
+import ProcessCard from "@components/ui/ProcessCard.astro";
+
+const { title, description, steps } = Astro.props;
+
+interface Step {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  steps: Step[];
+}
+---
+
+<Wrapper class="bg-gray-50 py-20" id="process">
+  <Container>
+    <div class="text-center mb-16">
+      <Heading title={title} centered />
+      {description && <Lead text={description} centered />}
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8">
+      {
+        steps.map((step, index) => (
+          <ProcessCard
+            number={index + 1}
+            title={step.title}
+            description={step.description}
+            isLast={index === steps.length - 1}
+          />
+        ))
+      }
+    </div>
+  </Container>
+</Wrapper>

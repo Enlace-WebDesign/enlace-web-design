@@ -1,0 +1,64 @@
+---
+import Wrapper from "@components/shared/Wrapper.astro";
+import Container from "@components/shared/Container.astro";
+import Heading from "@components/shared/Heading.astro";
+import Lead from "@components/shared/Lead.astro";
+import Button from "@components/shared/Button.astro";
+
+const { title, description, ctaLabel, ctaHref, image } = Astro.props;
+
+interface Props {
+  title: string;
+  description?: string;
+  ctaLabel: string;
+  ctaHref: string;
+  image: string;
+}
+---
+
+<Wrapper id="contact">
+  <div
+    class="relative min-h-[50vh] flex items-center bg-cover bg-center"
+    style={`background-image: url('${image}')`}
+  >
+    <div
+      class="absolute inset-0 bg-linear-to-r from-orange-500/80 to-teal-500/80"
+    >
+    </div>
+    <Container class="h-full">
+      <div
+        class="relative z-10 flex-col flex md:flex-row md:gap-12 items-center"
+      >
+        <div
+          class="flex flex-col justify-center items-center md:justify-between md:items-start gap-10 md:gap-6 h-[50vh] py-20"
+        >
+          <Heading
+            title={title}
+            class="text-white text-5xl md:text-7xl text-center md:text-left"
+          />
+
+          <Button
+            label={ctaLabel}
+            href={ctaHref}
+            variant="secondary"
+            size="lg"
+            blank
+          />
+        </div>
+
+        <div class="max-w-md self-end md:py-20 text-center md:text-left">
+          {
+            description && (
+              <Lead
+                text={description}
+                color="white"
+                class="text-right bottom-0"
+                size="xl"
+              />
+            )
+          }
+        </div>
+      </div>
+    </Container>
+  </div>
+</Wrapper>

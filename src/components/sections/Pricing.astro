@@ -1,0 +1,40 @@
+---
+import Wrapper from "../shared/Wrapper.astro";
+import Container from "../shared/Container.astro";
+import Heading from "../shared/Heading.astro";
+import Lead from "../shared/Lead.astro";
+import PricingCard from "../ui/PricingCard.astro";
+
+const { title, description, plans } = Astro.props;
+
+interface Plan {
+  name: string;
+  price: string;
+  period?: string;
+  description: string;
+  features: string[];
+  buttonLabel: string;
+  buttonHref?: string;
+  highlighted?: boolean;
+  badge?: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  plans: Plan[];
+}
+---
+
+<Wrapper class="bg-gray-950 py-20">
+  <Container>
+    <div class="text-center mb-16">
+      <Heading title={title} centered class="text-white" />
+      {description && <Lead text={description} centered color="gray-300" />}
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-6 items-stretch">
+      {plans.map((plan) => <PricingCard {...plan} />)}
+    </div>
+  </Container>
+</Wrapper>

@@ -1,0 +1,7 @@
+---
+const { text, centered = false, color = "gray-600", size = "lg" } = Astro.props;
+---
+
+<p class={`mt-4 text-${size} text-${color} ${centered ? "text-center" : ""}`}>
+  {text}
+</p>

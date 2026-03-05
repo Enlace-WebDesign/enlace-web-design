@@ -1,0 +1,14 @@
+---
+const {
+  title,
+  centered = false,
+  class: customClass = "",
+  size = "text-3xl",
+} = Astro.props;
+---
+
+<h2
+  class={`${size} font-bold tracking-tight ${centered ? "text-center" : ""} ${customClass}`}
+>
+  {title}
+</h2>

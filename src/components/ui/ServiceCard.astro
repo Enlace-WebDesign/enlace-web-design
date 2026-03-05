@@ -1,0 +1,22 @@
+---
+import Card from "@components/shared/Card.astro";
+import { type Icon as IconType } from "@lucide/astro";
+
+const { title, description, icon: Icon } = Astro.props;
+
+interface Props {
+  title: string;
+  description: string;
+  icon: typeof IconType;
+}
+---
+
+<Card hoverable>
+  <div
+    class="w-14 h-14 rounded-full bg-linear-to-br from-orange-400 to-orange-800 flex items-center justify-center mb-4"
+  >
+    <Icon class="text-white w-6 h-6" />
+  </div>
+  <h3 class="text-lg font-bold text-gray-900 mb-2">{title}</h3>
+  <p class="text-gray-600 text-sm leading-relaxed">{description}</p>
+</Card>
