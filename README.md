@@ -1,46 +1,78 @@
-# Astro Starter Kit: Basics
+# Enlace - Web Design
 
-```sh
-bun create astro@latest -- --template basics
-```
+**Nombre de la Empresa:** Enlace - Web Design
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Descripción
 
-## 🚀 Project Structure
+Plantilla de sitio web desarrollada con Astro, pensada para mostrar servicios, portafolio y contacto de estudios o agencias de diseño web.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Tecnologías usadas
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+- Astro
+- TypeScript
+- HTML & CSS
+- Bun (runtime y gestor de paquetes)
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Estructura del proyecto (resumen)
 
-## 🧞 Commands
+- `src/pages` : Páginas del sitio (p. ej. `index.astro`).
+- `src/components` : Componentes reutilizables y secciones (Hero, Navbar, Footer, etc.).
+- `src/layouts` : Layouts principales del sitio.
+- `src/styles` : Estilos globales.
+- `public/images` : Imágenes públicas y recursos estáticos.
 
-All commands are run from the root of the project, from a terminal:
+## Comandos rápidos (Bun)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+1. Instalar dependencias:
 
-## 👀 Want to learn more?
+   bun install
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+2. Ejecutar en modo desarrollo:
+
+   bun run dev
+
+3. Construir para producción:
+
+   bun run build
+
+4. Previsualizar la build:
+
+   bun run preview
+
+Nota: Estos comandos asumen que `package.json` contiene los scripts `dev`, `build` y `preview` (p. ej. `astro dev`, `astro build`, `astro preview`).
+
+## Proceso de Build para publicar
+
+- 1. Instala dependencias con `bun install`.
+- 2. Ejecuta la build con `bun run build`. Astro genera la salida estática por defecto en la carpeta `dist`.
+- 3. Verifica localmente con `bun run preview`.
+- 4. Publica el contenido de `dist` en el hosting elegido (Netlify, GitHub Pages, etc.).
+
+Despliegue (opciones)
+
+- GitHub Pages (recomendado mediante Actions): usar un workflow CI que construya con Bun y publique el contenido de `dist` usando las Actions oficiales (`actions/upload-pages-artifact` + `actions/deploy-pages`).
+- Netlify: en el panel de Netlify configura el comando de build `bun run build` y la carpeta a publicar `dist`. Alternativamente usar un GitHub Action que, tras la build, ejecute `netlify deploy --dir=dist --prod` (requiere los secrets `NETLIFY_AUTH_TOKEN` y `NETLIFY_SITE_ID`).
+
+## GitHub Actions (ejemplo incluido)
+
+Se incluye un workflow de ejemplo en `.github/workflows/deploy.yml` que:
+
+- instala Bun
+- ejecuta `bun install` y `bun run build`
+- despliega automáticamente a GitHub Pages
+- si detecta los secrets `NETLIFY_AUTH_TOKEN` y `NETLIFY_SITE_ID`, también despliega a Netlify
+
+## Buenas prácticas y recomendaciones
+
+- Mantener los componentes pequeños y reutilizables.
+- Optimizar imágenes en `public/images` para producción (comprimir, webp, reproporciones).
+- Probar la build localmente con `bun run preview` antes de desplegar.
+- Añadir un `.gitignore` y no commitear el contenido de `dist` si usas GitHub Pages con Actions (el workflow gestiona la publicación).
+
+## Créditos
+
+Hecho por Enlace - Web Design
+
+## Contacto
+
+Si necesitas ajustes, nuevas secciones o asistencia con el despliegue, contáctanos.
